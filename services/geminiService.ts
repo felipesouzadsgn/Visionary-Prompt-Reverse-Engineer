@@ -7,31 +7,31 @@ const analysisSchema: Schema = {
   properties: {
     subject: {
       type: Type.STRING,
-      description: "The core subject matter of the image. Be specific about character, object, or scene details.",
+      description: "The core subject matter. Focus on hyper-detailed textures, facial features, or material properties.",
     },
     medium: {
       type: Type.STRING,
-      description: "The artistic medium or style (e.g., '35mm Film Photography', 'Oil Painting', '3D Octane Render', 'Cyberpunk Digital Art').",
+      description: "The medium. Prioritize realism keywords (e.g., 'Award-winning Photography', 'Shot on Sony A7R IV', 'Unreal Engine 5 Render', '8k resolution', 'Hyper-realistic').",
     },
     lighting: {
       type: Type.STRING,
-      description: "Lighting conditions (e.g., 'Golden hour', 'Cinematic volumetric lighting', 'Neon noir', 'Soft studio lighting').",
+      description: "Physically correct lighting (e.g., 'Global Illumination', 'Ray Tracing', 'Cinematic Lighting', 'Volumetric God Rays').",
     },
     camera: {
       type: Type.STRING,
-      description: "Camera angle and lens details (e.g., 'Wide-angle lens', 'Macro shot', 'Drone view', 'Bokeh depth of field').",
+      description: "Camera specifics for realism (e.g., 'f/1.8 aperture', '85mm portrait lens', 'Motion blur', 'Depth of Field', 'ISO 100').",
     },
     palette: {
       type: Type.STRING,
-      description: "Color palette description (e.g., 'Vibrant neon', 'Monochromatic noir', 'Pastel dreamscape', 'Earthy tones').",
+      description: "Color palette description (e.g., 'Kodak Portra 400', 'Bleach Bypass', 'True-to-life colors').",
     },
     vibe: {
       type: Type.STRING,
-      description: "The mood or atmosphere (e.g., 'Ethereal', 'Dystopian', 'Minimalist', 'Whimsical').",
+      description: "Atmosphere focusing on presence and immersion (e.g., 'Immersive', 'Atmospheric', 'Tangible', 'Cinematic').",
     },
     techParams: {
       type: Type.STRING,
-      description: "Midjourney/DALL-E technical parameters (e.g., '--ar 16:9 --v 6.0 --stylize 250 --chaos 10'). Inference strictly based on image aspect ratio and complexity.",
+      description: "High-end parameters. ALWAYS suggest quality boosters (e.g., '--ar 16:9 --v 6.0 --style raw --s 750 --q 2' or 'Quality: High, Detail: Maximum').",
     },
   },
   required: ["subject", "medium", "lighting", "camera", "palette", "vibe", "techParams"],
@@ -53,17 +53,23 @@ export const analyzeImage = async (base64Image: string, mimeType: string): Promi
             },
           },
           {
-            text: `Act as a world-class Prompt Engineer and Art Director. 
-            Reverse-engineer this image into a structured professional prompt used for high-end AI image generation (Midjourney v6, DALL-E 3).
-            Analyze every visual aspect meticulously.`,
+            text: `Act as an Elite Prompt Engineer specializing in Photorealism and High-Fidelity Synthesis. 
+            Reverse-engineer this image into a structured professional prompt designed to generate ULTRA-REALISTIC images (Midjourney v6, DALL-E 3).
+            
+            Focus intensely on:
+            1. Texture (skin pores, fabric weave, surface imperfections).
+            2. Optical Properties (reflection, refraction, subsurface scattering).
+            3. Photography Equipment (Camera sensor, lens choice).
+            
+            Ensure the output prompt creates an indistinguishable-from-reality masterpiece.`,
           },
         ],
       },
       config: {
         responseMimeType: "application/json",
         responseSchema: analysisSchema,
-        systemInstruction: "You are an expert at deconstructing images into their generative components. Be concise, professional, and evocative in your descriptions.",
-        temperature: 0.4, // Lower temperature for more analytical/precise output
+        systemInstruction: "You are a specialist in Hyper-Realistic AI Image Generation. Your vocabulary must be precise, evocative, and technical to ensure maximum visual fidelity.",
+        temperature: 0.3, // Low temperature for consistent, high-quality technical descriptions
       },
     });
 
