@@ -14,10 +14,18 @@ const GlassCard: React.FC<GlassCardProps> = ({
   border = true 
 }) => {
   
-  const bgOpacity = {
-    low: 'bg-white/[0.03]',
-    medium: 'bg-white/[0.07]',
-    high: 'bg-white/[0.12]',
+  // Dark Mode Opacities
+  const darkBg = {
+    low: 'dark:bg-white/[0.03]',
+    medium: 'dark:bg-white/[0.07]',
+    high: 'dark:bg-white/[0.12]',
+  };
+
+  // Light Mode Opacities (frosted glass look)
+  const lightBg = {
+    low: 'bg-white/40',
+    medium: 'bg-white/60',
+    high: 'bg-white/80',
   };
 
   const blurIntensity = {
@@ -26,23 +34,23 @@ const GlassCard: React.FC<GlassCardProps> = ({
     high: 'backdrop-blur-3xl',
   };
 
-  const borderClass = border ? 'border border-white/10' : '';
+  const borderClass = border ? 'border border-white/20 dark:border-white/10 shadow-sm' : '';
 
   return (
     <div 
       className={`
         relative overflow-hidden
-        ${bgOpacity[intensity]} 
+        ${lightBg[intensity]} ${darkBg[intensity]}
         ${blurIntensity[intensity]} 
         ${borderClass}
         rounded-[2rem] 
-        shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]
-        text-white
+        shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]
+        text-zinc-900 dark:text-white
         transition-all duration-500 ease-out
         ${className}
       `}
     >
-      {/* Noise Texture Overlay for realism */}
+      {/* Noise Texture Overlay for realism (Dark mode mainly, subtle in light) */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" 
            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
       </div>

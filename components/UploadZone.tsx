@@ -99,37 +99,41 @@ const UploadZone: React.FC<UploadZoneProps> = ({ onFileSelect, disabled }) => {
       <GlassCard 
         intensity={isDragging ? 'high' : 'medium'}
         className={`
-          flex flex-col items-center justify-center text-center p-8
-          border-dashed ${isDragging ? 'border-white/40 scale-[1.02]' : 'border-white/10'}
+          flex flex-col items-center justify-center text-center 
+          p-6 md:p-8
+          border-dashed 
+          ${isDragging 
+            ? 'border-blue-400 dark:border-white/40 scale-[1.02]' 
+            : 'border-zinc-300 dark:border-white/10'}
           transition-all duration-300
         `}
       >
         {/* Main Click Area Content */}
         <div 
             onClick={handleClick} 
-            className="w-full flex flex-col items-center cursor-pointer pb-8 border-b border-white/5"
+            className="w-full flex flex-col items-center cursor-pointer pb-6 md:pb-8 border-b border-black/5 dark:border-white/5"
         >
             <div className={`
-            w-20 h-20 rounded-full bg-gradient-to-tr from-gray-800 to-black
-            flex items-center justify-center mb-6 shadow-2xl
+            w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-tr from-gray-200 to-white dark:from-gray-800 dark:to-black
+            flex items-center justify-center mb-4 md:mb-6 shadow-2xl
             ${isDragging ? 'animate-pulse' : 'group-hover:scale-110'} transition-transform duration-300
             `}>
             {isDragging ? (
-                <Sparkles className="w-8 h-8 text-blue-400" />
+                <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-blue-500 dark:text-blue-400" />
             ) : (
-                <Upload className="w-8 h-8 text-white/80" />
+                <Upload className="w-6 h-6 md:w-8 md:h-8 text-zinc-400 dark:text-white/80" />
             )}
             </div>
 
-            <h3 className="text-2xl font-light tracking-tight text-white mb-2">
+            <h3 className="text-xl md:text-2xl font-light tracking-tight dark:text-white text-zinc-900 mb-2">
             {isDragging ? "Release to Analyze" : "Drop visual reference"}
             </h3>
             
-            <p className="text-sm text-white/40 font-light max-w-xs mx-auto mb-4">
+            <p className="text-sm dark:text-white/40 text-zinc-500 font-light max-w-xs mx-auto mb-4 leading-relaxed">
             Upload an image to extract its DNA and generate a professional prompt.
             </p>
             
-            <div className="flex items-center space-x-2 text-xs font-medium text-white/30 uppercase tracking-widest">
+            <div className="flex items-center space-x-2 text-[10px] md:text-xs font-medium dark:text-white/30 text-zinc-400 uppercase tracking-widest">
                 <ImageIcon className="w-3 h-3" />
                 <span>JPG • PNG • WEBP</span>
             </div>
@@ -137,16 +141,16 @@ const UploadZone: React.FC<UploadZoneProps> = ({ onFileSelect, disabled }) => {
 
         {/* Sample Images Section */}
         <div className="w-full mt-6">
-            <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] mb-4 font-semibold">
+            <p className="text-[10px] dark:text-white/20 text-zinc-400 uppercase tracking-[0.2em] mb-4 font-semibold">
                 Or select a sample
             </p>
-            <div className="grid grid-cols-4 gap-4 w-full max-w-md mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full max-w-md mx-auto">
                 {SAMPLES.map((sample, idx) => (
                     <button
                         key={idx}
                         onClick={(e) => handleSampleClick(sample.url, e)}
                         disabled={disabled || loadingSample !== null}
-                        className="group/sample relative aspect-square rounded-xl overflow-hidden ring-1 ring-white/10 hover:ring-white/40 transition-all focus:outline-none"
+                        className="group/sample relative aspect-square rounded-xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10 hover:ring-blue-400 dark:hover:ring-white/40 transition-all focus:outline-none shadow-sm"
                     >
                         <img 
                             src={sample.url} 
@@ -154,7 +158,7 @@ const UploadZone: React.FC<UploadZoneProps> = ({ onFileSelect, disabled }) => {
                             className={`
                                 w-full h-full object-cover 
                                 transition-all duration-500
-                                ${loadingSample === sample.url ? 'scale-100 opacity-40 blur-sm' : 'opacity-60 grayscale-[0.5] group-hover/sample:grayscale-0 group-hover/sample:opacity-100 group-hover/sample:scale-110'}
+                                ${loadingSample === sample.url ? 'scale-100 opacity-40 blur-sm' : 'opacity-80 dark:opacity-60 grayscale-[0.5] group-hover/sample:grayscale-0 group-hover/sample:opacity-100 group-hover/sample:scale-110'}
                             `} 
                         />
                         
@@ -167,7 +171,7 @@ const UploadZone: React.FC<UploadZoneProps> = ({ onFileSelect, disabled }) => {
 
                         {/* Hover Label Overlay */}
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/sample:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2">
-                            <span className="text-[9px] text-white font-medium uppercase tracking-wide">{sample.label}</span>
+                            <span className="text-[9px] text-white font-medium uppercase tracking-wide truncate px-1">{sample.label}</span>
                         </div>
                     </button>
                 ))}
